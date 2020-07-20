@@ -1,0 +1,70 @@
+:root {
+  --elegant: #212121;
+}
+
+/* Color modifications */
+
+.bg-elegant {
+  background-color: var(--elegant) !important;
+  color: white;
+}
+
+.bg-elegant-light {
+  background-color: #424242;
+  color: white;
+}
+
+.bg-elegant-light:hover,
+.bg-elegant-light:visited {
+  background-color: #616161;
+  color: white;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Layout */
+
+@media screen and (min-width: 800px) {
+  .text-heading {
+    color: black !important;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: #c2843b;
+    background-image: url(/static/images/landing.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: content-box;
+  }
+}
+
+.rounded {
+  border-radius: 1vh;
+}
+
+.nav-item {
+  height: 100%;
+}
+
+/* dark versions */
+
+.dropdown-dark {
+  background-color: #343a40 !important;
+}
+
+.dropdown-item-dark {
+  color: white !important;
+  background-color: #343a40!important;
+}
+
+.dropdown-item-dark:hover {
+  background-color: #2b3035 !important;
+  border-color: #343a40 !important;
+}

@@ -1,0 +1,11 @@
+{% set active = "rooms" -%} {% extends "base.html" -%} {% from "macros.jinja" import render_card -%} {%
+block content -%}
+<h1 class="text-center text-heading">
+  Raum Übersicht
+</h1>
+<hr />
+<div class="container card-columns">
+  {% for room in rooms -%} {{ render_card(room.nick, room.description,
+  room.get_links()) }} {% endfor -%}
+</div>
+{% endblock content -%}

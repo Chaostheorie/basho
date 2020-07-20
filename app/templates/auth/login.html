@@ -1,0 +1,27 @@
+{% extends "base.html" -%} {% block content -%}
+<div class="container  my-auto mx-auto">
+  <form class="row w100">
+    <div class="col s12 m12 l12 text-center">
+      <div class="input-field s12 l10 m10 x8">
+        <input id="username" type="text" class="validate" />
+        <label for="username">Nutzername</label>
+      </div>
+    </div>
+    <div class="col s12 m12 l12 text-center">
+      <div class="input-field s12 l10 m10 x8">
+        <input id="password" type="password" class="validate" />
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="card-action text-center">
+      <button
+        class="btn btn-large waves-effect waves-light bg-elegant"
+        type="submit"
+        name="action"
+      >
+        <i class="material-icons left">login</i> Login
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock content -%}
