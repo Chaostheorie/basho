@@ -37,7 +37,10 @@ from app.models import *
 
 
 def get_url():
-    if (url := getenv("DATABASE_URL")) is not None:
+    if os.environ.get("CI"):
+        # See github workflow files
+        return f"postgres://postgres:postgres@127.0.0.1"
+    elif (url := getenv("DATABASE_URL")) is not None:
         return url
     url = f"{getenv('DRIVER')}://{getenv('DATABASE-USER')}:{getenv('PASSWORD')}@{getenv('ADDRESS')}/{getenv('DATABASE')}"
     if url.find("None") != -1:

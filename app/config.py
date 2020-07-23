@@ -14,7 +14,6 @@ load_dotenv()
 
 
 def get_url() -> str:
-    print(os.environ.keys())
     if os.environ.get("CI"):
         # See github workflow files
         return f"postgres://postgres:postgres@127.0.0.1"
