@@ -50,7 +50,7 @@ jobs:
           python -m black ./**/*.py --check --target-version py38
       - name: Run migrations
         run: |
-          python -m alembic upgrade head
+          alembic upgrade head
       - name: Tests with pytest
         env:
           # The hostname used to communicate with the PostgreSQL service container
