@@ -48,7 +48,7 @@ jobs:
       - name: Check black formatting
         run: |
           python -m black ./**/*.py --check --target-version py38
-       name: Run migrations
+      -name: Run migrations
         run: |
           python -m alembic upgrade head
       - name: Tests with pytest
