@@ -2,7 +2,8 @@ __doc__ = """
 File containing initial configuration and startup/ shutdown coroutines
 """
 
-from os import getenv, environ
+import os
+from os import getenv
 from quart import Config as BaseConfig
 from dotenv import load_dotenv
 from .helper import gen_secret, coro
@@ -13,7 +14,8 @@ load_dotenv()
 
 
 def get_url() -> str:
-    if environ.get("GITHUB_WORKFLOW"):
+    print(os.environ.keys())
+    if os.environ.get("CI"):
         # See github workflow files
         return f"postgres://postgres:postgres@127.0.0.1"
     if (url := getenv("DATABASE_URL")) is not None:
