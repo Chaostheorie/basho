@@ -1,8 +1,13 @@
+import sys
+from os.path import abspath, dirname
+
+sys.path.insert(0, dirname(dirname(dirname(abspath(__file__))))) # Insert <.>/src
+
 from logging.config import fileConfig
 from os import getenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from app import db
+from app.models import db
 from dotenv import load_dotenv
 from asyncio import run
 from alembic import context
