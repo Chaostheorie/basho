@@ -44,6 +44,17 @@ The `toolkit.py` will also contain database utilities in the future.
 
 [Black](https://github.com/ambv/black) is used as code style. Consider using a black integration in your IDE.
 
+### Translation workflow
+
+The translation workflow is documented to give a little overview on how to do this yourself.
+
+The used program for creating translations is [poedit (free)](https://poedit.net). `Pybabel` is available via `apt` (debian 10/ ubuntu focal): `sudo apt-get install python-babel`.
+
+- Extract Mixed (en/ de) Strings from : `pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot ../`
+- Add new language: `pybabel init -i messages.pot -d translations -l depybabel init -i messages.pot -d . -l <lang code>`
+- update translations (after extraction): `pybabel update -i messages.pot -d .`
+- compile translations: `pybabel compile -d .`
+
 ## Frontend Design
 
 Bootstrap 4 and MDBootstrap are used as frontend frameworks (See [attributions](#Attributions)). This also brings tooltips with popper.js and jquery as js frameworks. The areas of basho are differentiated by color accents. The application is generally in an `elegant` color (`#212121`) and takes advantage of `landing.jpg` as background. Layouts should take advantage of less than more. Make sure to test your layout on different devices ([firefox's](https://developer.mozilla.org/en-US/docs/Tools/Web_Console) & [chrome's](https://developers.google.com/web/tools/chrome-devtools/) dev console have a wonderful integration for this) for responsiveness.
