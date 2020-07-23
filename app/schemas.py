@@ -24,6 +24,7 @@ class WrappedSchema(Schema):
         finally:
             return True
 
+
 def is_url(url: str) -> bool:
     if fullmatch(
         "https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\/[-a-zA-Z0-9()@:%_\+.~#?]*",
@@ -42,4 +43,3 @@ UserRegisterSchema = WrappedSchema(
     },
     extra=REMOVE_EXTRA,
 )
-

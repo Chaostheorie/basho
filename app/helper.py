@@ -55,5 +55,3 @@ class TranslationCache:
                     self.translations[lang][unit.unit] = unit.default
                 else:
                     self.translations[lang][unit.unit] = unit.translation
-
-

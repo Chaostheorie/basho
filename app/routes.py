@@ -33,6 +33,7 @@ async def edit_unit(unit: str) -> Response:
         print(vals["en[unit]"])
         return "", 200
 
+
 # Users
 @app.route("/users")
 async def user_overview() -> Response:
@@ -60,6 +61,7 @@ async def edit_user_route(id: int) -> Response:
             print("Update User data")
         else:
             return abort(401)
+
 
 @app.before_request
 async def evaluate_locale():
