@@ -1,4 +1,4 @@
 def test_startup():
-    from app import app
+    from .. import app
 
     pass
