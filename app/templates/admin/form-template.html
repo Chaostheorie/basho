@@ -1,0 +1,95 @@
+{% extends "base.html" -%}
+{% block content_container -%}
+container my-4 bg-light
+{% endblock content_container -%}
+{% block content -%}
+<form
+  id="{# Form id #}"
+  name="{# Form id #}"
+  class="mx-2 px-2"
+  action="{{ url_for('your endpoint', kwargs) }}"
+  method="POST"
+>
+  <div class="row justify-content-center">
+    <h2 class="responsive-h1">
+      {# Title (with gettext) #}
+    </h2>
+  </div>
+  {# Single line #}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="md-form mb-0">
+        <input type="text" id="subject" name="unit" class="form-control active-danger" />
+        <label for="subject" class="">Subject</label>
+      </div>
+    </div>
+  </div>
+  {# Radio #}
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Default inline 1-->
+      <div class="custom-control custom-radio custom-control-inline">
+        <input
+          type="radio"
+          class="custom-control-input"
+          id="defaultInline1"
+          name="inlineDefaultRadiosExample"
+        />
+        <label class="custom-control-label" for="defaultInline1">1</label>
+      </div>
+
+      <!-- Default inline 2-->
+      <div class="custom-control custom-radio custom-control-inline">
+        <input
+          type="radio"
+          class="custom-control-input"
+          id="defaultInline2"
+          name="inlineDefaultRadiosExample"
+        />
+        <label class="custom-control-label" for="defaultInline2">2</label>
+      </div>
+
+      <!-- Default inline 3-->
+      <div class="custom-control custom-radio custom-control-inline">
+        <input
+          type="radio"
+          class="custom-control-input"
+          id="defaultInline3"
+          name="inlineDefaultRadiosExample"
+        />
+        <label class="custom-control-label" for="defaultInline3">3</label>
+      </div>
+    </div>
+  </div>
+
+  {# Textarea #}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="md-form">
+        <textarea
+          type="text"
+          id="unit"
+          name="unit"
+          rows="2"
+          class="form-control md-textarea active-danger"
+        >
+        {# predefined content #}
+        </textarea
+        >
+        <label for="unit">{# Text area label (gettext) #}</label>
+      </div>
+    </div>
+  </div>
+</form>
+
+{# submit #}
+<div class="text-center row">
+  <div class="col-md-12">
+    <a
+      class="btn btn-danger rounded"
+      onclick="document.getElementById('contact-form').submit();"
+      >{{ gettext("Save Edit") }}</a
+    >
+  </div>
+</div>
+{% endblock content -%}

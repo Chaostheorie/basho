@@ -2,7 +2,7 @@ from logging.config import fileConfig
 from os import getenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from basho import db
+from app import db
 from dotenv import load_dotenv
 from asyncio import run    
 from alembic import context
@@ -23,7 +23,7 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = db
-from basho.models import *
+from app.models import *
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

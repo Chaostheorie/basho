@@ -2,6 +2,8 @@ import typing
 from secrets import token_urlsafe
 from hashlib import md5
 from datetime import datetime
+from ujson import dumps
+from sqlalchemy.sql.sqltypes import Text
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db, app
 
@@ -51,13 +53,34 @@ class User(db.Model):
 
     @property
     def is_authenticated(self) -> bool:
-        return self.is_suspended is True
+        """Checks if user is suspended
+
+        Returns:
+            bool: Returns True if user is not suspended
+        """
+        return self.is_suspended is False
 
     def avatar(self, size: int) -> str:
+        """Returns identicon (garavatar) for user
+
+        Args:
+            size (int): size of returned image (box)
+
+        Returns:
+            str: url for image (https://www.gravatar.com/avatar/…)
+        """
         digest = md5(self.username.lower().encode("utf-8")).hexdigest()
         return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(
             digest, size
         )
+
+    def __html__(self) -> str:
+        """Returns username as html compatible list (for jinja's tojson filter)
+
+        Returns:
+            str: username
+        """
+        return self.username
 
     async def get_roles(self):
         """Gets roles of user with baked query"""
@@ -189,3 +212,50 @@ class Reservation(db.Model):
         return await Reservation.overview_paginated_query.all(
             offset=offset, limit=limit
         )
+
+    def __repr__(self) -> str:
+        return f"<Reservation r:{self.room_id}/u:{self.user_id} [{self.id}]>"
+
+
+class TranslationUnits(db.Model):
+    __tablename__ = "translationunits"
+
+    id = db.Column(db.Integer, primary_key=True)
+    unit = db.Column(db.String, nullable=False)
+    default = db.Column(db.String, nullable=False)
+    translation = db.Column(db.String)
+    label = db.Column(db.String, nullable=False)
+    lang = db.Column(db.String, nullable=False)
+
+    def __html__(self) -> str:
+        return dumps(self.jsonify())
+
+    def jsonify(self, dumps: bool = True) -> dict:
+        return {
+            "id": self.id,
+            "unit": self.unit,
+            "default": self.default,
+            "translation": self.translation,
+            "lang": self.lang,
+        }
+
+    @db.bake
+    def get_unit_query(self):
+        return self.query.where(
+            self.lang == db.bindparam("lang") and self.unit == db.bindparam("unit")
+        )
+
+    @db.bake
+    def get_units_query(self):
+        return self.query.where(self.unit == db.bindparam("unit"))
+
+    @staticmethod
+    async def get_units(unit: str) -> list:
+        return await TranslationUnits.get_units_query.all(unit=unit)
+
+    @staticmethod
+    async def get_unit(unit: str, lang: str = "en"):
+        return await TranslationUnits.get_unit_query.first(unit=unit, lang=lang)
+
+    def __repr__(self) -> str:
+        return f"<TranslationUnit {self.unit} [{self.id}] [{self.lang}]>"

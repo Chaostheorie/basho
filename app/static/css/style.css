@@ -1,5 +1,6 @@
 :root {
   --elegant: #212121;
+  --danger: #ff3547;
 }
 
 /* Color modifications */
@@ -28,6 +29,32 @@
   text-align: center;
 }
 
+.active-elegant:focus {
+  border-bottom: 1px solid var(--elegant) !important;
+  -webkit-box-shadow: 0 1px 0 0 var(--elegant) !important;
+  box-shadow: 0 1px 0 0 var(--elegant) !important;
+}
+
+.active-danger:focus {
+  border-bottom: 1px solid var(--danger) !important;
+  -webkit-box-shadow: 0 1px 0 0 var(--danger) !important;
+  box-shadow: 0 1px 0 0 var(--danger) !important;
+}
+
+.custom-control-input:checked ~ .custom-control-label-danger::before {
+  color: #fff;
+  border-color: var(--danger);
+  background-color: var(--danger);
+}
+
+.hr-danger {
+  border-bottom: 1px solid var(--danger);
+}
+
+.hr-elegant {
+  border-bottom: 1px solid var(--elegant);
+}
+
 /* Layout */
 
 @media screen and (min-width: 800px) {
@@ -45,12 +72,29 @@
   }
 }
 
+@media screen and (max-width: 799px) {
+  .bg-light, .bg-light-adapt {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
 .rounded {
   border-radius: 1vh;
 }
 
 .nav-item {
   height: 100%;
+}
+
+.w-80 {
+  width: 80% !important;
+}
+
+.toast {
+  position: fixed;
+  margin-left: 1rem;
 }
 
 /* dark versions */
@@ -61,10 +105,28 @@
 
 .dropdown-item-dark {
   color: white !important;
-  background-color: #343a40!important;
+  background-color: #343a40 !important;
 }
 
 .dropdown-item-dark:hover {
   background-color: #2b3035 !important;
   border-color: #343a40 !important;
+}
+/* Modifications for specific elements */
+
+.list-group-item {
+  background-color: transparent !important;
+}
+
+.btn-table {
+  display: inline-flex !important;
+}
+
+.table-text-center {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.btn-group-table {
+  display: inline-flex !important;
 }

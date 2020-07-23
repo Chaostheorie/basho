@@ -3,9 +3,114 @@
   <div class="card-header card-title h4">{{ title }}</div>
   <div class="card-body">
     <p class="card-text">{{ description }}</p>
-      {% for link, desc in links -%}
-        <a href="{{ link }}" class="card-link btn btn-raised btn-dark">{{ desc }}</a>
-      {% endfor -%}
+    {% for link, desc in links -%}
+    <a href="{{ link }}" class="card-link btn btn-raised btn-dark">{{
+      desc
+    }}</a>
+    {% endfor -%}
   </div>
 </div>
-{% endmacro -%}
+{% endmacro -%} {% macro render_user(user, type) -%} {% if type == "table" -%}
+<tr class="table-text-center">
+  <th scope="row table-text-center ">
+    {% if user.is_suspended -%}
+    <i
+      class="fa fa-user-times mx-2"
+      data-toggle="tooltip"
+      title="{{ gettext('User is suspended') }}"
+    ></i>
+    {% elif user.is_superuser -%}
+    <i
+      class="fa fa-user-md mx-2"
+      data-toggle="tooltip"
+      title="{{ gettext('User is Superuser') }}"
+    ></i>
+    {% else -%}
+    <i class="fa fa-user mx-2"></i>
+    {% endif -%}
+  </th>
+  <td class="table-text-center">{{ user.username }}</td>
+  <td class="btn-group btn-group-table">
+    <a
+      href="{{ url_for('edit_user_route', id=user.id) }}"
+      class="btn btn-table btn-sm btn-elegant"
+      data-toggle="tooltip"
+      title="{{ gettext('Edit user {name}')|format(name=user.username) }}"
+    >
+      <i class="fa fa-edit"></i>
+    </a>
+  {% if user.is_suspended -%}
+  <a
+    href=""
+    class="btn btn-table btn-sm btn-elegant"
+    data-toggle="tooltip"
+    title="{{ gettext('Enable {name}')|format(name=user.username) }}"
+  >
+    <i class="fa fa-times"></i>
+  </a>
+  {% else -%}
+  <a
+    href=""
+    class="btn btn-table btn-sm btn-elegant"
+    data-toggle="tooltip"
+    title="{{ gettext('Disable {name}')|format(name=user.username) }}"
+  >
+    <i class="fa fa-check"></i>
+  </a>
+  {% endif -%}
+  </td>
+</tr>
+{% elif type == "list" -%}
+<li
+  class="list-group-item d-flex justify-content-between"
+  id="{{ user.username }}-item"
+>
+  <div class="md-v-line"></div>
+
+  <p class="p-0 m-0 flex-grow-1">
+    {% if user.is_suspended -%}
+    <i
+      class="fa fa-user-times mr-2"
+      data-toggle="tooltip"
+      title="{{ gettext('User is suspended') }}"
+    ></i>
+    {% elif user.is_superuser -%}
+    <i
+      class="fa fa-user-md mr-2"
+      data-toggle="tooltip"
+      title="{{ gettext('User is Superuser') }}"
+    ></i>
+    {% else -%}
+    <i class="fa fa-user mr-2"></i>
+    {% endif -%}
+    {{ user.username }}
+  </p>
+  <a
+    href="{{ url_for('edit_user_route', id=user.id) }}"
+    class="btn btn-sm btn-elegant"
+    data-toggle="tooltip"
+    title="{{ gettext('Edit user {name}')|format(name=user.username) }}"
+  >
+    <i class="fa fa-edit"></i>
+  </a>
+  {% if user.is_suspended -%}
+  <a
+    href=""
+    class="btn btn-sm btn-elegant"
+    data-toggle="tooltip"
+    title="{{ gettext('Enable {name}')|format(name=user.username) }}"
+  >
+    <i class="fa fa-times"></i>
+  </a>
+  {% else -%}
+  <a
+    href=""
+    class="btn btn-sm btn-elegant"
+    data-toggle="tooltip"
+    title="{{ gettext('Disable {name}')|format(name=user.username) }}"
+  >
+    <i class="fa fa-check"></i>
+  </a>
+  {% endif -%}
+</li>
+{% endif -%} {% endmacro -%}

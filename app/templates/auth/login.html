@@ -1,27 +1,68 @@
-{% extends "base.html" -%} {% block content -%}
-<div class="container  my-auto mx-auto">
-  <form class="row w100">
-    <div class="col s12 m12 l12 text-center">
-      <div class="input-field s12 l10 m10 x8">
-        <input id="username" type="text" class="validate" />
-        <label for="username">Nutzername</label>
+{% extends "base.html" -%} {% block content_container -%}container my-4
+p-2{% endblock -%} {% block content -%}
+<form class="text-center card bg-light-adapt p-5" action="#!">
+  <div class="row justify-content-center">
+    <h2 class="responsive-h1">
+      {{ gettext("Sign in") }}
+    </h2>
+  </div>
+  <hr class="mb-3 mt-0 hr-elegant" />
+
+  <!-- Email -->
+  <div class="md-form row px-2">
+    <div class="col-md-12">
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-control mb-4 active-elegant"
+        placeholder="{{ gettext('Username or E-Mail') }}"
+      />
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="md-form row justify-content-center px-2">
+    <div class="col-md-12">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control mb-4 active-elegant"
+        placeholder="{{ gettext('Password') }}"
+      />
+    </div>
+  </div>
+
+  <div class="row justify-content-around">
+    <div class="col-md-6">
+      <!-- Remember me -->
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          class="custom-control-input  mb-2"
+          id="remember-me"
+          name="remember-me"
+        />
+        <label class="custom-control-label" for="remember-me"
+          >Remember me</label
+        >
       </div>
     </div>
-    <div class="col s12 m12 l12 text-center">
-      <div class="input-field s12 l10 m10 x8">
-        <input id="password" type="password" class="validate" />
-        <label for="password">Password</label>
-      </div>
-    </div>
-    <div class="card-action text-center">
-      <button
-        class="btn btn-large waves-effect waves-light bg-elegant"
-        type="submit"
-        name="action"
+    <div class="col-md-6">
+      <!-- Forgot password -->
+      <a
+        href="{{ url_for('forgot_password') }}"
+        class="btn mb-2 btn-elegant btn-sm"
+        >{{ gettext("Forgot password?") }}</a
       >
-        <i class="material-icons left">login</i> Login
-      </button>
     </div>
-  </form>
-</div>
+  </div>
+
+  <!-- Sign in button -->
+  <button class="btn btn-elegant my-4" type="submit">
+    {{ gettext("Sign in") }} <i class='fa fa-arrow-right ml-2'></i>
+  </button>
+</form>
+<!-- Default form login -->
 {% endblock content -%}

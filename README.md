@@ -40,7 +40,7 @@ The `toolkit.py` will also contain database utilities in the future.
 
 [Black](https://github.com/ambv/black) is used as code style. Consider using a black integration in your IDE.
 
-## Design
+## Frontend Design
 
 Bootstrap 4 and MDBootstrap are used as frontend frameworks. This also brings tooltips with popper.js and jquery as js frameworks. The areas of basho are differentiated by color accents. The application is generally in an `elegant` color (`#`) and takes advantage of `landing.jpg` as background. Layouts should take advantage of less than more. Make sure to test your layout on different devices (firefox's & chromiums dev console have a wonderful integration for this) for responsiveness.
 

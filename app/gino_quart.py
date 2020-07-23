@@ -24,6 +24,13 @@ class QuartModelMixin:
             raise NotFound()
         return rv
 
+    @classmethod
+    async def all_or_404(cls, *args, **kwargs):
+        rv = await cls.query.where(**kwargs).all(*args)
+        if rv == []:
+            raise NotFound()
+        return rv
+
 
 class GinoExecutor(_Executor):
     async def first_or_404(self, *args, **kwargs):
@@ -122,7 +129,7 @@ class Gino(_Gino):
                     del request.connection
                 return response
 
-        @app.before_first_request
+        @app.before_serving
         async def before_first_request():
             dsn = self.config["dsn"]
             if not dsn:

@@ -1,0 +1,22 @@
+{
+  "de": {
+    "index": {
+      "default": "Basho ist eine besondere platform.",
+      "label": "Angezeigt auf Startseite"
+    },
+    "sub-index": {
+      "default": "Bereitgestellt mit Quart",
+      "label": "Angezeig tunter Beschreibung auf Startseite"
+    }
+  },
+  "en": {
+    "index": {
+      "default": "Basho is an awesome new platform.",
+      "label": "Show on landing page"
+    },
+    "sub-index": {
+      "default": "Powered by Quart",
+      "label": "Shown below description as small text"
+    }
+  }
+}

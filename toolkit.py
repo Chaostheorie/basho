@@ -9,6 +9,7 @@ import asyncio
 from functools import wraps
 from app.helper import connect
 
+
 def coro(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -46,9 +47,7 @@ def format(root, fast):
                 continue
             with open(file_path, "r") as f:
                 try:
-                    out = format_file_contents(
-                        f.read(), fast=fast, mode=FileMode()
-                        )
+                    out = format_file_contents(f.read(), fast=fast, mode=FileMode())
                     changes[0] += 1
                     with open(file_path, "w") as f:
                         f.write(out)
@@ -100,6 +99,39 @@ def devserver(port, reload, host, http, loop, workers, log_level):
         host=host,
         log_level=log_level,
     )
+
+
+@toolkit.command()
+@click.option("--force", is_flag=True, default=False, type=bool)
+@click.option("--purge", is_flag=True, default=False, type=bool)
+@coro
+async def initial_setup(force: bool, purge: bool):
+    from app.models import TranslationUnits
+    from json import load
+
+    with open("default-units.json", "r") as file:
+        units = load(file)
+
+    await connect()
+
+    if purge:
+        _units = await TranslationUnits.query.gino.all()
+        for unit in _units:
+            await unit.delete()
+
+    langs = units.keys()
+    for lang in langs:
+        for unit, items in units[lang].items():
+            trans = await TranslationUnits.get_unit(lang=lang, unit=unit)
+            if trans is not None and force:
+                await trans.update(
+                    unit=unit, default=items["default"], label=items["label"]
+                ).apply()
+
+            else:
+                await TranslationUnits.create(
+                    lang=lang, unit=unit, default=items["default"], label=items["label"]
+                )
 
 
 @toolkit.command()

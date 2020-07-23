@@ -1,0 +1,39 @@
+{% from "macros.jinja" import render_user -%} {% extends "base.html" -%} {%block
+content -%}
+<h1 class="text-center text-heading">
+  {{ gettext("User Overview") }}
+</h1>
+<hr />
+
+<div class="container bg-light p-2 rounded">
+  <div class="row justify-content-center md-form mb-3">
+    <input
+      class="form-control active-elegant w-80"
+      id="UserSearch"
+      type="text"
+      placeholder="{{ gettext('Search for user') }}"
+    />
+  </div>
+  <br />
+  <div class="row justify-content-center">
+    <table class="table w-80">
+      <tbody class="table-text-center" id="item-deck">
+        {% for user in users -%} {{ render_user(user, type="table") }} {% endfor
+        -%}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content -%} {% block javascript -%}
+<script>
+  $(document).ready(function () {
+    $("#UserSearch").on("keyup", function () {
+      const value = $(this).val().toLowerCase();
+      $("#item-deck tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
+</script>
+{% endblock -%}

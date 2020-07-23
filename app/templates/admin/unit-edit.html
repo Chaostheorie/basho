@@ -1,0 +1,126 @@
+{% extends "base.html" -%} {% block content_container -%}{% endblock -%} {%
+block content -%}
+<div
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  class="toast"
+  data-autohide="false"
+>
+  <div class="toast-header">
+    <strong class="mr-auto">{{ gettext("Notification") }}</strong>
+    <button
+      type="button"
+      class="ml-2 mb-1 close"
+      data-dismiss="toast"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    {% trans -%}Change saved successfully.{% endtrans -%}
+  </div>
+</div>
+<div class="container bg-light my-4 p-2">
+  <form
+    id="unit-edit"
+    name="unit-edit"
+    class="mt-2 mb-0 mx-2 px-2 pt-2"
+    action=""
+    method="POST"
+  >
+    <div class="row justify-content-center">
+      <h2 class="responsive-h1">
+        {{ gettext("Edit unit: {unit}")|format(unit=units[0].unit) }}
+      </h2>
+    </div>
+    <hr class="mb-3 mt-0 hr-danger" />
+
+    <div class="row">
+      <div class="col-md-12">
+        {% for unit in units -%}
+        <div class="custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            class="custom-control-input"
+            id="unit-lang-radio-{{ unit.id }}"
+            name="unit-lang-radios"
+            value="{{ unit.lang }}"
+          />
+          <label
+            class="custom-control-label custom-control-label-danger"
+            for="unit-lang-radio-{{ unit.id }}"
+            >{{ unit.lang }}</label
+          >
+        </div>
+        {% endfor -%}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="md-form">
+          <textarea
+            type="text"
+            id="unit"
+            name="unit"
+            rows="4"
+            class="form-control md-textarea active-danger"
+          >
+          </textarea>
+          <label for="unit">{{ gettext("Unit") }}</label>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="text-center row pb-2">
+    <div class="col-md-12">
+      <a class="btn btn-danger rounded" onclick="$('#unit-edit').submit();"
+        >{{ gettext("Save Edit") }}</a
+      >
+    </div>
+  </div>
+</div>
+<!--Grid column-->
+{% endblock -%} {% block javascript -%}
+<script>
+  let units = {{ units|unitjoin|tojson }};
+  const langs = Object.keys(units);
+  let unit, value, lang;
+  $(document).ready(() => {
+    $("input[type=radio][name=unit-lang-radios]").attr("checked", false);
+    $("#unit-edit").trigger("reset");
+    const unitarea = $("#unit");
+    $("#unit-edit").submit((evt) => {
+      evt.preventDefault();
+      units[unitarea.data("lang")].translation = unitarea.val();
+      $.post(
+        '{{ url_for("edit_unit", unit=units[0].unit) }}',
+        data=units,
+        success=(data) => {
+            $('.toast').toast("show")
+        }
+      );
+    });
+    $("input[type=radio][name=unit-lang-radios]").change((evt) => {
+      value = unitarea.val();
+      lang = unitarea.data("lang");
+      if (units[lang] !== undefined) {
+        units[lang].translation = value;
+        console.log(1)
+      }
+      unit = units[evt.target.value];
+      unitarea.focus();
+      unitarea.data("lang", evt.target.value);
+      if (unit.translation !== null) {
+        unitarea.val(unit.translation);
+      } else {
+        unitarea.val(unit.default);
+      }
+
+    });
+  });
+</script>
+{% endblock -%}

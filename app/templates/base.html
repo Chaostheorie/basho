@@ -11,18 +11,18 @@
     <!-- CSS -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
-    <link
-      rel="stylesheet"
       href='{{ url_for("static", filename="css/bootstrap.min.css") }}'
     />
     <link
       rel="stylesheet"
-      href='{{ url_for("static", filename="css/bootstrap-material-design.min.css") }}'
+      href='{{ url_for("static", filename="css/mdb.min.css") }}'
     />
     <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-free/css/all.min.css') }}">
-
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  
     <!-- Favicon bullshit -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon/favicon-32x32.png') }}">
@@ -38,8 +38,8 @@
     
   </head>
   <body class="{% block body-%}{% endblock -%}">
-    <nav class="navbar py-1 px-2 bg-dark navbar-expand-lg navbar-dark">
-      <a class="navbar-brand mb-0 pb-0" href="/">
+    <nav class="navbar sticky-top py-1 px-2 bg-elegant navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/">
         <i class="fas fa-door-open"></i>
         Basho 
       </a>
@@ -62,21 +62,21 @@
         <ul class="navbar-nav h-100 justify-content-end">
           <li class="nav-item">
             <a
-              class="nav-link mb-0 btn text-white {% if active is defined and active == 'events' -%}active{% endif -%}"
+              class="nav-link  btn btn-sm btn-outline-white text-white {% if active is defined and active == 'events' -%}active{% endif -%}"
               href="/rooms/events"
               >{{ gettext("Events") }}</a
             >
           </li>
           <li class="nav-item">
             <a
-              class="nav-link mb-0 btn text-white {% if active is defined and active == 'rooms' -%}active{% endif -%}"
+              class="nav-link  btn btn-sm btn-outline-white text-white {% if active is defined and active == 'rooms' -%}active{% endif -%}"
               href="/rooms/"
               >{{ gettext("Rooms") }}</a
             >
           </li>
           <li class="nav-item">
               <a
-                class="btn nav-link mb-0 text-white dropdown-toggle"
+                class="btn nav-link  text-white btn-sm btn-outline-white dropdown-toggle"
                 id="profile-nav-label"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -112,11 +112,11 @@
   <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/bootstrap-material-design.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
   <script>
     $(document).ready(function () {
-      $("body").bootstrapMaterialDesign();
       $(".dropdown-toggle").dropdown();
+      $('[data-toggle="tooltip"]').tooltip()
     });
   </script>
   {% block javascript -%}{% endblock -%}
