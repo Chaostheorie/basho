@@ -16,6 +16,10 @@ Install all dependencies:
 
 `pip3 install -r requirements.txt`
 
+Init git submodules (requires [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)):
+
+`git submodule init`
+
 Setup `.env` file (may vary for [windows](http://www.dowdandassociates.com/blog/content/howto-set-an-environment-variable-in-windows-command-line-and-registry/)) (Read by [dotenv](https://pypi.org/project/python-dotenv/)). Replace `{}` with your own credentials. `SECRET` should be e.g. a random generated string. `SECRET` is used as key for cookie encryption. See [Security](#Security) for more info.
 
 ```environment
@@ -42,7 +46,7 @@ The `toolkit.py` will also contain database utilities in the future.
 
 ## Frontend Design
 
-Bootstrap 4 and MDBootstrap are used as frontend frameworks. This also brings tooltips with popper.js and jquery as js frameworks. The areas of basho are differentiated by color accents. The application is generally in an `elegant` color (`#`) and takes advantage of `landing.jpg` as background. Layouts should take advantage of less than more. Make sure to test your layout on different devices (firefox's & chromiums dev console have a wonderful integration for this) for responsiveness.
+Bootstrap 4 and MDBootstrap are used as frontend frameworks (See [attributions](#Attributions)). This also brings tooltips with popper.js and jquery as js frameworks. The areas of basho are differentiated by color accents. The application is generally in an `elegant` color (`#212121`) and takes advantage of `landing.jpg` as background. Layouts should take advantage of less than more. Make sure to test your layout on different devices ([firefox's](https://developer.mozilla.org/en-US/docs/Tools/Web_Console) & [chrome's](https://developers.google.com/web/tools/chrome-devtools/) dev console have a wonderful integration for this) for responsiveness.
 
 | area           | color     |
 | -------------- | --------- |
@@ -50,23 +54,29 @@ Bootstrap 4 and MDBootstrap are used as frontend frameworks. This also brings to
 | admin          | danger    |
 | rooms & events | secondary |
 
-> WIP: Add links to references
-
 ## Security
 
-Security is handled by design with endpoint protection. The user system takes advantage of `quart-auth`.
+Security is handled by design with endpoint protection. The user system takes advantage of [`quart-auth`](https://pypi.org/project/quart-auth/).
 
-> The `secret` must be kept _secret_. Change it to something secure (e.g. `python3 -c 'from secret import token_urlsafe; print(token_urlsafe())'`) and put it in your environment. _Don't hardcode it into the application_ It provides the encryption for werkzeugs secure session storage and cookies.
+> The `secret` must be kept _secret_. Change it to something secure (e.g. `python3 -c 'from secret import token_urlsafe; print(token_urlsafe())'`) and put it in your environment. _Don't hardcode it into the application_ It provides the encryption for [werkzeugs](https://pypi.org/project/Werkzeug/) secure session storage and cookies.
 
-> WIP: Add links to references
+## Explanations
+
+> Why are all css/ js/ icon libraries included locally instead via a cdn?
+
+All external sources add a point of customer data processing when hitting the cdn. This may cause more work for the privacy policy in certain regions instead of only hitting your server. This also makes privacy related to e.g. logging of ip addresses an easier task to handle for sysops. This is part of this projects _privacy by design_ concept.
+
+> Why quart and not flask
+
+Cause it's faster and natively supports asnycio. I personally prefer async web development to synchronous web development if possible. Quart in particular can support the vast flask ecosystem and helped with the development.
 
 ## Attributions
 
-- [Bootstrap 4]()
-- [Fontawesome 4]()
-- [Jquery 3.5.1]()
-- [popper.js]()
-- [Material design for bootstrap 4 \(free\)]() under [MIT License]()
+- [Bootstrap 4](https://getbootstrap.com/) under [MIT License](https://github.com/twbs/bootstrap/blob/main/LICENSE)
+- [Fontawesome 5](https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
+- [Jquery 3.5.1](https://jquery.org) under [MIT License](https://jquery.org/license/)
+- [popper.js](https://popper.js.org/) under [MIT License](https://github.com/popperjs/popper-core/blob/master/LICENSE.md)
+- [Material design for bootstrap 4 \(free\)](https://mdbootstrap.com/) under [MIT License](https://mdbootstrap.com/general/license/)
 - All libraries mentioned in `requirements.txt`
 
 ## License

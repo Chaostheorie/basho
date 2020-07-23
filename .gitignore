@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Fontawesome local copy
-fontawesome-free/
+# Temporary files
+tmp*
+
+# VSCode Support
+.vscode/
