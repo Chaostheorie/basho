@@ -13,6 +13,9 @@ load_dotenv()
 
 
 def get_url() -> str:
+    if getenv("GITHUB_WORKFLOW"):
+        # See github workflow files
+        return f"postgres://postgres:postgres@127.0.0.1"
     if (url := getenv("DATABASE_URL")) is not None:
         return url
     url = f"{getenv('DRIVER')}://{getenv('DATABASE-USER')}:{getenv('PASSWORD')}@{getenv('ADDRESS')}/{getenv('DATABASE')}"
