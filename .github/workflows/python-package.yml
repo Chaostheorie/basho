@@ -52,11 +52,5 @@ jobs:
         run: |
           alembic upgrade head
       - name: Tests with pytest
-        env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
-
         run: |
           pytest
